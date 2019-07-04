@@ -1,7 +1,7 @@
 <div>
   <button class="btn btn-primary" style="width: 100%"> <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added</button>
 </div>
-<div style="text-align: center">
+<div style="text-align: center; font-size: 14px; margin-top: 20px; margin-bottom: 20px">
   Thank you! <br/>
   We will get back to you with any additional questions or when the task is done ASAP.
   <br/>
@@ -12,6 +12,6 @@
   Would you like to repport another issue?
 </div>
 
-<div style="text-align: center">
+<div style="text-align: center; margin-bottom: 80%">
   <%= link_to 'Create New Issue', "/client_report/#{@project.identifier}", class: 'btn btn-primary', style: 'width: 85%' %>
 </div>
