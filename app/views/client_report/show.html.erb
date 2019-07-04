@@ -2,7 +2,7 @@
   <%= hidden_field_tag :project_id, @project.id %>
   <div class="form-group">
     <% if @issue.safe_attribute? 'subject' %>
-      <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: l(:field_subject) %></p>
+      <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: l(:field_subject), style: 'width: 100%' %></p>
     <% end %>
   </div>
   <div class="form-group">
@@ -22,10 +22,10 @@
     <% end %>
   </div>
   <div class="form-group" style="overflow: hidden">
-    <div class="input-file-trigger" style="position: relative">
-      <%= image_tag 'upload.svg', plugin: 'redmine_tclub_support', style: 'width: 100%; position: relative' %>
-      <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: 'left: 48%; top: 25%;position: absolute' %>
-      <span style="left: 40%; top: 45%; position: absolute">
+    <div class="input-file-trigger" id="dropfile" style="position: relative; width: 100%;  height: 150px; border: 3px dashed gray;">
+
+      <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: 'left: 42%; top: 30%;position: absolute' %>
+      <span style="left: 40%; top: 50%; position: absolute">
         Add files here
       </span>
     </div>
@@ -96,17 +96,55 @@
               return false;
           });
 
+
+
+          $(document).on('dragenter', '#dropfile', function() {
+              $(this).css('border', '3px dashed blue');
+              return false;
+          });
+
+          $(document).on('dragover', '#dropfile', function(e){
+              e.preventDefault();
+              e.stopPropagation();
+              $(this).css('border', '3px dashed #2BAA48');
+              return false;
+          });
+
+          $(document).on('dragleave', '#dropfile', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              $(this).css('border', '3px dashed #2BAA48');
+              return false;
+          });
+
+          $(document).on('drop', '#dropfile', function(e) {
+              if(e.originalEvent.dataTransfer){
+                  if(e.originalEvent.dataTransfer.files.length) {
+                      // Stop the propagation of the event
+                      e.preventDefault();
+                      e.stopPropagation();
+                      $(this).css('border', '3px dashed green');
+                      // Main function to upload
+                      handleFileDropEvent(e)
+                  }
+              }
+              else {
+                  $(this).css('border', '3px dashed #BBBBBB');
+              }
+              return false;
+          });
+
       })
 
     </script>
     <%= javascript_include_tag 'attachments' %>
   </div>
-  <div class="form-group" style="margin-bottom: 30px;">
+  <div class="form-group" style="margin-bottom: 30px; font-size: 12px">
     T Club Terrace är en prisbelönt kreativ byrå,
-    <br/>
+
     specialiserad på att skapa digitala produkter.
   </div>
-  <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'width: 48%; margin-right: 3%' %>
-  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'width: 48%' %>
+  <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'width: 49%;' %>
+  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'width: 49%' %>
 <% end %>
 

@@ -18,7 +18,7 @@ class ClientReportController < ApplicationController
           if params[:continue]
             redirect_to "/client_report/#{@project.identifier}"
           else
-            redirect_to "/client_report/#{@project.identifier}/thank_you"
+            redirect_to "/client_report/#{@project.identifier}/thank_you?issue_id=#{@issue.id}"
           end
         }
 

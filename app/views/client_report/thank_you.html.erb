@@ -1,5 +1,5 @@
 <div>
-  <button class="btn btn-primary" style="width: 100%"> Subject - was added</button>
+  <button class="btn btn-primary" style="width: 100%"> <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added</button>
 </div>
 <div style="text-align: center">
   Thank you! <br/>
