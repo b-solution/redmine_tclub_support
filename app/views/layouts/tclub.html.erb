@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title><%= html_title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="<%= Redmine::Info.app_name %>" />
+  <meta name="keywords" content="issue,bug,tracker" />
+  <%= csrf_meta_tag %>
+  <%= favicon %>
+  <%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', 'responsive', :media => 'all' %>
+  <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
+  <%= javascript_heads %>
+  <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+
+</head>
+<body>
+<div class="container">
+  <div class="row" style="margin-top: 10%">
+    <div class="col-xs-12 hidden-xs -sm-1 col-md-3"></div>
+    <div class="col-xs-12 col-sm-10 col-md-5">
+      <div style="text-align: center; margin: 30px">
+        <%= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support' %>
+        <div>
+          <div> CLIENT NAME</div>
+          <div> REPORTINGSYSTEM</div>
+          <div><%= image_tag 'slach.svg', plugin: 'redmine_tclub_support' %>        </div>
+          <div>T Club Terrace är en prisbelönt kreativ byrå,<br/> specialiserad på att skapa digitala produkter.      </div>
+        </div>
+      </div>
+
+      <%= yield %>
+    </div>
+    <div class="col-xs-12 hidden-xs col-sm-1 col-md-3"></div>
+
+  </div>
+</div>
+<style>
+  input,
+  button,
+  select,
+  textarea {
+    border-radius: 0 !important;
+  }
+
+  [type="radio"] {
+    border-radius: 50%;
+  }
+    .btn-primary{
+      background-color: #2BAA48;
+      border-color: #2BAA48;
+      color: #fff !important;
+    }
+</style>
+</body>
+</html>

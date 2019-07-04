@@ -1,0 +1,112 @@
+<%= form_for @issue, url: client_report_index_path do |form| %>
+  <%= hidden_field_tag :project_id, @project.id %>
+  <div class="form-group">
+    <% if @issue.safe_attribute? 'subject' %>
+      <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: l(:field_subject) %></p>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% if @issue.safe_attribute? 'description' %>
+      <p>
+        <%= link_to_function content_tag(:span, l(:button_edit), :class => 'icon icon-edit'), '$(this).hide(); $("#issue_description_and_toolbar").show()' unless @issue.new_record? %>
+        <%= content_tag 'span', :id => "issue_description_and_toolbar", :style => (@issue.new_record? ? nil : 'display:none') do %>
+          <%= form.text_area :description,
+                             :cols => 60,
+                             :rows => [[10, @issue.description.to_s.length / 50].max, 20].min,
+                             :accesskey => accesskey(:edit),
+                             :class => 'form-control', placeholder: l(:field_description),
+                             :no_label => true %>
+        <% end %>
+      </p>
+      <%= wikitoolbar_for 'issue_description' %>
+    <% end %>
+  </div>
+  <div class="form-group" style="overflow: hidden">
+    <div class="input-file-trigger" style="position: relative">
+      <%= image_tag 'upload.svg', plugin: 'redmine_tclub_support', style: 'width: 100%; position: relative' %>
+      <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: 'left: 48%; top: 25%;position: absolute' %>
+      <span style="left: 40%; top: 45%; position: absolute">
+        Add files here
+      </span>
+    </div>
+    <% container = @issue %>
+    <% attachment_param ||= 'attachments' %>
+    <% saved_attachments ||= container.saved_attachments if defined?(container) && container %>
+    <% multiple = true unless defined?(multiple) && multiple == false %>
+    <% show_add = multiple || saved_attachments.blank? %>
+    <% description = (defined?(description) && description == false ? false : true) %>
+    <% css_class = (defined?(filedrop) && filedrop == false ? '' : 'filedrop') %>
+
+    <span class="attachments_form">
+      <span class="attachments_fields">
+        <% if saved_attachments.present? %>
+          <% saved_attachments.each_with_index do |attachment, i| %>
+            <span id="attachments_p<%= i %>">
+              <%= text_field_tag("#{attachment_param}[p#{i}][filename]", attachment.filename, :class => 'filename') %>
+              <% if attachment.container_id.present? %>
+                <%= link_to l(:label_delete), "#", :onclick => "$(this).closest('.attachments_form').find('.add_attachment').show(); $(this).parent().remove(); return false;", :class => 'icon-only icon-del' %>
+                <%= hidden_field_tag "#{attachment_param}[p#{i}][id]", attachment.id %>
+              <% else %>
+                <%= text_field_tag("#{attachment_param}[p#{i}][description]", attachment.description, :maxlength => 255, :placeholder => l(:label_optional_description), :class => 'description') if description %>
+                <%= link_to('&nbsp;'.html_safe, attachment_path(attachment, :attachment_id => "p#{i}", :format => 'js'), :method => 'delete', :remote => true, :class => 'icon-only icon-del remove-upload') %>
+                <%= hidden_field_tag "#{attachment_param}[p#{i}][token]", attachment.token %>
+              <% end %>
+            </span>
+          <% end %>
+        <% end %>
+      </span>
+      <span hidden>
+
+      <span class="add_attachment" style="display:none;">
+        <%= file_field_tag "#{attachment_param}[dummy][file]",
+                           :id => nil,
+                           :class => "file_selector #{css_class}",
+                           :multiple => multiple,
+                           :onchange => 'addInputFiles(this);',
+                           :data => {
+                               :max_file_size => Setting.attachment_max_size.to_i.kilobytes,
+                               :max_file_size_message => l(:error_attachment_too_big, :max_size => number_to_human_size(Setting.attachment_max_size.to_i.kilobytes)),
+                               :max_concurrent_uploads => Redmine::Configuration['max_concurrent_ajax_uploads'].to_i,
+                               :upload_path => upload_client_report_index_path(:format => 'js'),
+                               :param => attachment_param,
+                               :description => description,
+                               :description_placeholder => l(:label_optional_description)
+                           } %>
+        (<%= l(:label_max_size) %>: <%= number_to_human_size(Setting.attachment_max_size.to_i.kilobytes) %>)
+      </span>
+      </span>
+    </span>
+    <script>
+      $(document).ready(function(){
+          // initialisation des variables
+          var fileInput  = document.querySelector( ".file_selector" ),
+              button     = document.querySelector( ".input-file-trigger" )
+
+          // action lorsque la "barre d'espace" ou "Entrée" est pressée
+          button.addEventListener( "keydown", function( event ) {
+              if ( event.keyCode == 13 || event.keyCode == 32 ) {
+                  fileInput.focus();
+              }
+          });
+
+          // action lorsque le label est cliqué
+          button.addEventListener( "click", function( event ) {
+              // fileInput.focus();
+              fileInput.click();
+              return false;
+          });
+
+      })
+
+    </script>
+    <%= javascript_include_tag 'attachments' %>
+  </div>
+  <div class="form-group" style="margin-bottom: 30px;">
+    T Club Terrace är en prisbelönt kreativ byrå,
+    <br/>
+    specialiserad på att skapa digitala produkter.
+  </div>
+  <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'width: 48%; margin-right: 3%' %>
+  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'width: 48%' %>
+<% end %>
+
