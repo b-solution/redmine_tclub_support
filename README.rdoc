@@ -1,3 +1,5 @@
 = redmine_tclub_support
 
-Description goes here
+ This plugin make possible to anonymous user add a new issue without login
+
+ to access to this page, go to YOUR_DOMAIN/client_report/PROJECT_IDENTIFIER
