@@ -96,17 +96,10 @@ class ClientReportController < ApplicationController
     @issue.start_date ||= User.current.today if Setting.default_issue_start_date_to_creation_date?
 
     attrs = (params[:issue] || {}).deep_dup
-    if action_name == 'new' && params[:was_default_status] == attrs[:status_id]
-      attrs.delete(:status_id)
-    end
-    if action_name == 'new' && params[:form_update_triggered_by] == 'issue_project_id'
-      # Discard submitted version when changing the project on the issue form
-      # so we can use the default version for the new project
-      attrs.delete(:fixed_version_id)
-    end
     @issue.safe_attributes = attrs
 
     if @issue.project
+      @issue.tracker_id = Setting.plugin_redmine_tclub_support['tracker_id']
       @issue.tracker ||= @issue.allowed_target_trackers.first
       if @issue.tracker.nil?
         if @issue.project.trackers.any?
@@ -118,7 +111,9 @@ class ClientReportController < ApplicationController
         end
         return false
       end
+      @issue.status_id = Setting.plugin_redmine_tclub_support['status_id'] ||  @issue.new_statuses_allowed_to(User.current).first.try(:id) ||IssueStatus.first.id
       if @issue.status.nil?
+
         render_error l(:error_no_default_issue_status)
         return false
       end

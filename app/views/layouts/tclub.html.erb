@@ -23,7 +23,7 @@
       <div style="text-align: center; margin: 30px">
         <%= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support' %>
         <div>
-          <div> CLIENT NAME</div>
+          <div> <%= @project ? @project.name : '' %></div>
           <div> REPORTINGSYSTEM</div>
           <div><%= image_tag 'slach.svg', plugin: 'redmine_tclub_support' %>        </div>
           <div>T Club Terrace är en prisbelönt kreativ byrå,<br/> specialiserad på att skapa digitala produkter.      </div>

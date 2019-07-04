@@ -1,0 +1,11 @@
+<p>
+  <label>Tracker ID</label>
+  <%= select_tag 'settings[tracker_id]', options_for_select(Tracker.pluck(:name, :id), selected: @settings['tracker_id'] )%>
+</p>
+
+<p>
+  <label>Status ID</label>
+  <%= select_tag 'settings[status_id]',
+                 options_for_select(IssueStatus.pluck(:name, :id),
+                                    selected: @settings['status_id']  )  %>
+</p>
