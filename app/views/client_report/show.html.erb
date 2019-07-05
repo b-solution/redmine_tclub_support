@@ -1,5 +1,10 @@
 <%= form_for @issue, url: client_report_index_path do |form| %>
   <%= hidden_field_tag :project_id, @project.id %>
+  <% if params[:issue_id] %>
+    <div class="btn-primary" style="padding: 12px; text-align: center; margin-bottom: 25px">
+      <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added
+    </div>
+  <% end %>
   <div class="form-group">
     <% if @issue.safe_attribute? 'subject' %>
       <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: l(:field_subject), style: 'width: 100%' %></p>

@@ -18,10 +18,19 @@
 <body>
 <div class="container">
   <div class="row" style="margin-top: 8%">
-    <div class="col-xs-12 hidden-xs -sm-1 col-md-3 col-lg-4"></div>
+    <div class="col-xs-12 hidden-xs col-sm-1 col-md-3 col-lg-4"></div>
     <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4" style="padding: 0">
       <div style="text-align: center; margin: 30px">
-        <%= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support', style: 'margin-bottom: 25px' %>
+        <% if @project && Setting.plugin_redmine_tclub_support['logo'].present? &&
+            ( cfv = @project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} ) &&
+            (attachment =  Attachment.find_by_id(cfv.value) ) &&  attachment.thumbnailable? %>
+          <div class="thumbnails">
+            <div><%= thumbnail_tag(attachment) %></div>
+          </div>
+        <% else  %>
+          <%#= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support', style: 'margin-bottom: 25px' %>
+        <% end  %>
+
         <div>
           <div  style="font-size: 16px"> <%= @project ? @project.name : '' %></div>
           <div  style="font-size: 16px"> REPORTINGSYSTEM</div>
@@ -49,27 +58,27 @@
   [type="radio"] {
     border-radius: 50%;
   }
-    .btn-primary{
-      background-color: #2BAA48;
-      border-color: #2BAA48;
-      color: #fff !important;
-    }
+  .btn-primary{
+    background-color: #2BAA48;
+    border-color: #2BAA48;
+    color: #fff !important;
+  }
   .btn-primary:hover{
-      background-color: #4baa7e;
-      border-color: #4baa7e;
-      color: #fff !important;
-    }
-    /*footer{*/
-    /*  position: fixed;*/
+    background-color: #4baa7e;
+    border-color: #4baa7e;
+    color: #fff !important;
+  }
+  /*footer{*/
+  /*  position: fixed;*/
 
-    /*  bottom: 0;*/
+  /*  bottom: 0;*/
 
-    /*  width: 100%;*/
-    /*}*/
+  /*  width: 100%;*/
+  /*}*/
 </style>
 
 <footer>
-  <%= image_tag 'logodoneblack.svg', plugin: 'redmine_tclub_support', style: 'float: right' %>
+  <%= image_tag 'logodoneblack.svg', plugin: 'redmine_tclub_support', style: 'float: right; margin-right: 15px' %>
 </footer>
 </body>
 </html>

@@ -9,3 +9,10 @@
                  options_for_select(IssueStatus.pluck(:name, :id),
                                     selected: @settings['status_id']  )  %>
 </p>
+
+<p>
+  <label>Project LOGO</label>
+  <%= select_tag 'settings[logo]',
+                 options_for_select(ProjectCustomField.where(field_format: 'attachment').pluck(:name, :id),
+                                    selected: @settings['logo']  )  %>
+</p>
