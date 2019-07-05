@@ -1,7 +1,7 @@
 <%= form_for @issue, url: client_report_index_path do |form| %>
   <%= hidden_field_tag :project_id, @project.id %>
   <% if params[:issue_id] %>
-    <div class="btn-primary" style="padding: 12px; text-align: center; margin-bottom: 25px">
+    <div class="btn-primary" style=" background-color: #60BA6F; padding: 8px; text-align: center; margin-bottom: 25px">
       <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added
     </div>
   <% end %>
