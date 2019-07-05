@@ -23,9 +23,9 @@
       <div style="text-align: center; margin: 30px">
         <% if @project && Setting.plugin_redmine_tclub_support['logo'].present? &&
             ( cfv = @project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} ) &&
-            (attachment =  Attachment.find_by_id(cfv.value) ) &&  attachment.thumbnailable? %>
+            (attachment =  Attachment.find_by_id(cfv.value) )  %>
           <div class="thumbnails">
-            <div><%= thumbnail_tag(attachment) %></div>
+            <%= render :partial => 'common/image', :locals => {:path => download_named_attachment_path(attachment, attachment.filename), :alt => attachment.filename} %>
           </div>
         <% else  %>
           <%#= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support', style: 'margin-bottom: 25px' %>
