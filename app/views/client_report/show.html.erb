@@ -16,7 +16,7 @@
         <%= link_to_function content_tag(:span, l(:button_edit), :class => 'icon icon-edit'), '$(this).hide(); $("#issue_description_and_toolbar").show()' unless @issue.new_record? %>
         <%= form.text_area :description,
                            :cols => 60,
-                           :rows => [[10, @issue.description.to_s.length / 50].max, 20].min,
+                           :rows => 6,
                            :accesskey => accesskey(:edit),
                            :class => 'form-control', placeholder: l(:field_description),
                            :no_label => true %>
@@ -25,13 +25,16 @@
     <% end %>
   </div>
   <div class="form-group" style="overflow: hidden">
-    <div class="input-file-trigger" id="dropfile" style="position: relative; width: 100%;  height: 150px; border: 3px dashed gray;">
-
-      <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: 'left: 42%; top: 30%;position: absolute' %>
-      <span style="left: 40%; top: 50%; position: absolute">
-        Add files here
+    <div class="input-file-trigger" id="dropfile" style="position: relative; width: 100%;  height: 110px; border: 3px dashed gray; text-align: center; padding-top: 30px">
+      <span>
+        <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: '' %><br/>
+        <span style="">
+          Add files here
+        </span>
       </span>
     </div>
+
+
     <% container = @issue %>
     <% attachment_param ||= 'attachments' %>
     <% saved_attachments ||= container.saved_attachments if defined?(container) && container %>
