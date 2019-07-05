@@ -35,8 +35,22 @@ class ClientReportController < ApplicationController
         }
       end
     end
+  end
 
+  def download
+    @project = Project.find(params[:id])
+    if @project && Setting.plugin_redmine_tclub_support['logo'].present? && ( cfv = @project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} ) && (@attachment =  Attachment.find_by_id(cfv.value) )
+      if @attachment.container.is_a?(Version) || @attachment.container.is_a?(Project)
+        @attachment.increment_download
+      end
 
+      if stale?(:etag => @attachment.digest)
+        # images are sent inline
+        send_file @attachment.diskfile, :filename => filename_for_content_disposition(@attachment.filename),
+                  :type => detect_content_type(@attachment),
+                  :disposition => 'attachment'
+      end
+    end
   end
 
 
@@ -84,6 +98,14 @@ class ClientReportController < ApplicationController
   end
 
   private
+
+  def detect_content_type(attachment)
+    content_type = attachment.content_type
+    if content_type.blank? || content_type == "application/octet-stream"
+      content_type = Redmine::MimeType.of(attachment.filename)
+    end
+    content_type.to_s
+  end
 
   def build_new_issue_from_params
     @project = Project.find(params[:project_id])

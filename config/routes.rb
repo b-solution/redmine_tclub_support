@@ -7,6 +7,7 @@ resources :client_report, only: [:create, :show] do
   end
 
   member do
+    get 'download', to: 'client_report#download'
     get 'thank_you', to: 'client_report#thank_you'
   end
 end

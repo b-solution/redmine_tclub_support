@@ -25,7 +25,7 @@
             ( cfv = @project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} ) &&
             (attachment =  Attachment.find_by_id(cfv.value) )  %>
           <div class="thumbnails">
-            <%= render :partial => 'common/image', :locals => {:path => download_named_attachment_path(attachment, attachment.filename), :alt => attachment.filename} %>
+            <%= image_tag download_client_report_path(@project), :alt => attachment.filename, :class => 'filecontent image', width: '100px' %>
           </div>
         <% else  %>
           <%#= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support', style: 'margin-bottom: 25px' %>
