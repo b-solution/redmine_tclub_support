@@ -9,16 +9,14 @@
     <% if @issue.safe_attribute? 'description' %>
       <p>
         <%= link_to_function content_tag(:span, l(:button_edit), :class => 'icon icon-edit'), '$(this).hide(); $("#issue_description_and_toolbar").show()' unless @issue.new_record? %>
-        <%= content_tag 'span', :id => "issue_description_and_toolbar", :style => (@issue.new_record? ? nil : 'display:none') do %>
-          <%= form.text_area :description,
-                             :cols => 60,
-                             :rows => [[10, @issue.description.to_s.length / 50].max, 20].min,
-                             :accesskey => accesskey(:edit),
-                             :class => 'form-control', placeholder: l(:field_description),
-                             :no_label => true %>
-        <% end %>
+        <%= form.text_area :description,
+                           :cols => 60,
+                           :rows => [[10, @issue.description.to_s.length / 50].max, 20].min,
+                           :accesskey => accesskey(:edit),
+                           :class => 'form-control', placeholder: l(:field_description),
+                           :no_label => true %>
+
       </p>
-      <%= wikitoolbar_for 'issue_description' %>
     <% end %>
   </div>
   <div class="form-group" style="overflow: hidden">
@@ -77,64 +75,64 @@
       </span>
     </span>
     <script>
-      $(document).ready(function(){
-          // initialisation des variables
-          var fileInput  = document.querySelector( ".file_selector" ),
-              button     = document.querySelector( ".input-file-trigger" )
+        $(document).ready(function(){
+            // initialisation des variables
+            var fileInput  = document.querySelector( ".file_selector" ),
+                button     = document.querySelector( ".input-file-trigger" )
 
-          // action lorsque la "barre d'espace" ou "Entrée" est pressée
-          button.addEventListener( "keydown", function( event ) {
-              if ( event.keyCode == 13 || event.keyCode == 32 ) {
-                  fileInput.focus();
-              }
-          });
+            // action lorsque la "barre d'espace" ou "Entrée" est pressée
+            button.addEventListener( "keydown", function( event ) {
+                if ( event.keyCode == 13 || event.keyCode == 32 ) {
+                    fileInput.focus();
+                }
+            });
 
-          // action lorsque le label est cliqué
-          button.addEventListener( "click", function( event ) {
-              // fileInput.focus();
-              fileInput.click();
-              return false;
-          });
+            // action lorsque le label est cliqué
+            button.addEventListener( "click", function( event ) {
+                // fileInput.focus();
+                fileInput.click();
+                return false;
+            });
 
 
 
-          $(document).on('dragenter', '#dropfile', function() {
-              $(this).css('border', '3px dashed blue');
-              return false;
-          });
+            $(document).on('dragenter', '#dropfile', function() {
+                $(this).css('border', '3px dashed blue');
+                return false;
+            });
 
-          $(document).on('dragover', '#dropfile', function(e){
-              e.preventDefault();
-              e.stopPropagation();
-              $(this).css('border', '3px dashed #2BAA48');
-              return false;
-          });
+            $(document).on('dragover', '#dropfile', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('border', '3px dashed #2BAA48');
+                return false;
+            });
 
-          $(document).on('dragleave', '#dropfile', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              $(this).css('border', '3px dashed #2BAA48');
-              return false;
-          });
+            $(document).on('dragleave', '#dropfile', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('border', '3px dashed #2BAA48');
+                return false;
+            });
 
-          $(document).on('drop', '#dropfile', function(e) {
-              if(e.originalEvent.dataTransfer){
-                  if(e.originalEvent.dataTransfer.files.length) {
-                      // Stop the propagation of the event
-                      e.preventDefault();
-                      e.stopPropagation();
-                      $(this).css('border', '3px dashed green');
-                      // Main function to upload
-                      handleFileDropEvent(e)
-                  }
-              }
-              else {
-                  $(this).css('border', '3px dashed #BBBBBB');
-              }
-              return false;
-          });
+            $(document).on('drop', '#dropfile', function(e) {
+                if(e.originalEvent.dataTransfer){
+                    if(e.originalEvent.dataTransfer.files.length) {
+                        // Stop the propagation of the event
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $(this).css('border', '3px dashed green');
+                        // Main function to upload
+                        handleFileDropEvent(e)
+                    }
+                }
+                else {
+                    $(this).css('border', '3px dashed #BBBBBB');
+                }
+                return false;
+            });
 
-      })
+        })
 
     </script>
     <%= javascript_include_tag 'attachments' %>
@@ -144,7 +142,22 @@
 
     specialiserad på att skapa digitala produkter.
   </div>
-  <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'margin:0; float: left; width: 49%;' %>
-  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'margin:0; float: right; width: 49%;' %>
+  <div class="row">
+    <div id="div_btn_create" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; "> <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'margin:0; float: left; width: 100%;' %>
+    </div>
+    <div id="div_btn_continue" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; ">  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'margin:0; float: right; width: 100%;' %></div>
+
+  </div>
+
 <% end %>
 
+<style>
+  @media screen and (min-width: 992px) {
+    #div_btn_create{
+      padding-right: 1px
+    }
+    #div_btn_continue{
+      padding-left: 0
+    }
+  }
+</style>

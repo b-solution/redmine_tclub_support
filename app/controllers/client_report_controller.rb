@@ -14,7 +14,7 @@ class ClientReportController < ApplicationController
       call_hook(:controller_issues_new_after_save, { :params => params, :issue => @issue})
       respond_to do |format|
         format.html {
-          render_attachment_warning_if_needed(@issue)
+          # render_attachment_warning_if_needed(@issue)
           if params[:continue]
             redirect_to "/client_report/#{@project.identifier}"
           else
