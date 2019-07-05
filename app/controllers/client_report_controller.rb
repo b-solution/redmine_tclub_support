@@ -16,7 +16,7 @@ class ClientReportController < ApplicationController
         format.html {
           # render_attachment_warning_if_needed(@issue)
           if params[:continue]
-            redirect_to "/client_report/#{@project.identifier}"
+            redirect_to "/client_report/#{@project.identifier}?issue_id=#{@issue.id}"
           else
             redirect_to "/client_report/#{@project.identifier}/thank_you?issue_id=#{@issue.id}"
           end
