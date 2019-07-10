@@ -1,13 +1,13 @@
 <%= form_for @issue, url: client_report_index_path do |form| %>
   <%= hidden_field_tag :project_id, @project.id %>
   <% if params[:issue_id] %>
-    <div class="btn-primary" style=" background-color: #60BA6F; padding: 8px; text-align: center; margin-bottom: 25px">
-      <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added
+    <div class="btn-primary" style=" background-color: #60BA6F; padding: 5px; text-align: center; margin-bottom: 25px">
+      <%= Issue.find_by_id(params[:issue_id])&.subject %> - Är tillagt
     </div>
   <% end %>
   <div class="form-group">
     <% if @issue.safe_attribute? 'subject' %>
-      <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: l(:field_subject), style: 'width: 100%' %></p>
+      <p><%= form.text_field :subject, :required => true, class: 'form-control', placeholder: "Ämne", style: 'width: 100%' %></p>
     <% end %>
   </div>
   <div class="form-group">
@@ -17,8 +17,9 @@
         <%= form.text_area :description,
                            :cols => 60,
                            :rows => 6,
+                           placeholder: 'Beskrivning – Ex. ”Ändra till 30% mindre textstorlek på vår kontaktsida, www.vårdomän.se/kontakt”',
                            :accesskey => accesskey(:edit),
-                           :class => 'form-control', placeholder: l(:field_description),
+                           :class => 'form-control',
                            :no_label => true %>
 
       </p>
@@ -29,7 +30,7 @@
       <span>
         <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: '' %><br/>
         <span style="">
-          Add files here
+         Lägg till filer här
         </span>
       </span>
     </div>
@@ -146,26 +147,13 @@
     <%= javascript_include_tag 'attachments' %>
   </div>
   <div class="form-group" style="margin-bottom: 30px; font-size: 12px">
-    T Club Terrace är en prisbelönt kreativ byrå,
-
-    specialiserad på att skapa digitala produkter.
+    För att underlätta arbetet så är det bra att lägga till s.k. skärmdumpar.
   </div>
   <div class="row">
-    <div id="div_btn_create" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; "> <%= submit_tag l(:button_create), class: 'btn btn-primary', style: 'margin:0; float: left; width: 100%;' %>
+    <div id="div_btn_create" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; "> <%= submit_tag 'Skapa', class: 'btn btn-primary', style: 'margin:0; float: left; width: 100%;' %>
     </div>
-    <div id="div_btn_continue" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; ">  <%= submit_tag l(:button_create_and_continue), :name => 'continue', class: 'btn btn-primary', style: 'margin:0; float: right; width: 100%;' %></div>
+    <div id="div_btn_continue" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; ">  <%= submit_tag 'Skapa & gå vidare', :name => 'continue', class: 'btn btn-primary', style: 'margin:0; float: right; width: 100%;' %></div>
 
   </div>
 
 <% end %>
-
-<style>
-  @media screen and (min-width: 992px) {
-    #div_btn_create{
-      padding-right: 1px
-    }
-    #div_btn_continue{
-      padding-left: 0
-    }
-  }
-</style>

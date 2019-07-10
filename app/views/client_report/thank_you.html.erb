@@ -1,17 +1,11 @@
-<div class="btn-primary" style="padding: 12px; text-align: center">
- <%= Issue.find_by_id(params[:issue_id])&.subject %> - was added
+<div class="btn-primary" style="padding: 5px; text-align: center">
+ <%= Issue.find_by_id(params[:issue_id])&.subject %> - Är tillagt
 </div>
 <div style="text-align: center; font-size: 14px; margin-top: 20px; margin-bottom: 20px">
-  Thank you! <br/>
-  We will get back to you with any additional questions or when the task is done ASAP.
-  <br/>
-  If you have any questions please e-mail team@tclubterrace.com
-  <br/>
-  Or
-  <br/>
-  Would you like to report another issue?
+  Tack!<br/>
+  Vi återkommer med eventuella frågor eller när uppgiften är klar. Vi eventuella frågor kontakta, team@tclubterrace.com eller skapa ett nytt ärende nedan.
 </div>
 
 <div style="text-align: center; margin-bottom: 80%">
-  <%= link_to 'Create New Issue', "/client_report/#{@project.identifier}", class: 'btn btn-primary', style: 'width: 85%' %>
+  <%= link_to 'Skapa ett nytt ärende', "/client_report/#{@project.identifier}", class: 'btn btn-primary', style: 'width: 85%' %>
 </div>

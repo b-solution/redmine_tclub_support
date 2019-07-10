@@ -16,14 +16,14 @@
 </head>
 <body>
 <div class="container">
-  <div class="row" style="margin-top: 4%">
+  <div class="row" style="margin-top: 2%">
     <div class="col-xs-12 hidden-xs col-sm-1 col-md-3 col-lg-4"></div>
     <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4" style="padding: 0">
       <div style="text-align: center; margin: 30px">
         <% if @project && Setting.plugin_redmine_tclub_support['logo'].present? &&
             ( cfv = @project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} ) &&
             (attachment =  Attachment.find_by_id(cfv.value) )  %>
-          <div class="thumbnails">
+          <div class="thumbnails" style="margin-bottom: 10px">
             <%= image_tag download_client_report_path(@project), :alt => attachment.filename, :class => 'filecontent image', width: '100px' %>
           </div>
         <% else  %>
@@ -31,10 +31,15 @@
         <% end  %>
 
         <div>
-          <div  style="font-size: 16px"> <%= @project ? @project.name : '' %></div>
-          <div  style="font-size: 16px"> REPORTINGSYSTEM</div>
+          <div  style="margin-bottom: 10px; font-size: 16px"> <%= @project ? @project.name : '' %></div>
+          <div  style="font-size: 16px"> Rapporteringssystem</div>
           <div><%= image_tag 'slach.svg', plugin: 'redmine_tclub_support' %>        </div>
-          <div style="font-size: 14px" >T Club Terrace är en prisbelönt kreativ byrå,<br/> specialiserad på att skapa digitala produkter.      </div>
+          <div style="font-size: 14px" >
+            Med ett eget rapporteringssystem effektiviseras rapportering av eventuella buggar, ändringar och nya förfrågningar.
+            <% if params[:action] == 'show' %>
+              Fyll i ett enskilt ärende åt gången. Klicka på ”Skapa” för att skapa ett ärende eller fyll i fler ärenden genom att klicka på ”Skapa & gå vidare”
+            <% end  %>
+          </div>
         </div>
       </div>
 
@@ -74,6 +79,19 @@
 
   /*  width: 100%;*/
   /*}*/
+  @media screen and (min-width: 992px) {
+    #div_btn_create{
+      padding-right: 5px
+    }
+    #div_btn_continue{
+      padding-left: 5px
+    }
+    footer{
+      position: fixed;
+      width: 100%;
+      bottom: 15px;
+    }
+  }
 </style>
 
 <footer>
