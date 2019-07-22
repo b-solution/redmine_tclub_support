@@ -11,3 +11,11 @@ resources :client_report, only: [:create, :show] do
     get 'thank_you', to: 'client_report#thank_you'
   end
 end
+
+resources :tclub_project, only: [:create, :index] do
+  collection do
+    get 'check_project'
+    get 'thank_you', to: 'tclub_project#thank_you'
+  end
+end
+

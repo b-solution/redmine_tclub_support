@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title><%= html_title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="<%= Redmine::Info.app_name %>" />
+  <meta name="keywords" content="issue,bug,tracker" />
+  <%= csrf_meta_tag %>
+  <%= favicon %>
+  <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
+  <%= javascript_heads %>
+  <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+  <%= stylesheet_link_tag 'checkbox_style', plugin: 'redmine_tclub_support' %>
+
+</head>
+<body>
+<% unless params[:action] == 'thank_you' %>
+  <div id="progressbar">
+    <div id="indicator"><%= @step %>%</div>
+  </div>
+<% end %>
+<style>
+  #progressbar
+  {
+    width:100%;
+    padding:1px;
+    background-color:white;
+    overflow: hidden;
+    height:28px;
+  }
+  #indicator
+  {
+    width:<%= @step %>%;
+    background-color: #60BA6F;
+    height:28px;
+    margin:0;
+    text-align: right;
+    padding-right: 10px;
+    color: white;
+  }
+</style>
+<div class="container">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-xs-12 hidden-xs col-sm-1 col-md-3 col-lg-3"></div>
+    <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+      <div style="text-align: center; margin: 30px">
+
+        <div class="thumbnails" style="margin-bottom: 10px">
+          <%= image_tag 'logo_tcub.svg', plugin: 'redmine_tclub_support', style: 'margin-bottom: 25px' %>
+        </div>
+
+        <div>
+          <div  style="margin-bottom: 10px; font-size: 16px"> <%= @project ? @project.name : '' %></div>
+          <div  style="font-size: 16px">
+            <% if params[:action] == 'thank_you' %>
+              TACK!
+            <% else  %>
+              SKAPA EN BRIEF
+            <% end  %>
+          </div>
+          <div><%= image_tag 'slach.svg', plugin: 'redmine_tclub_support' %>        </div>
+          <div style="font-size: 12px" >
+            <% if params[:action] == 'thank_you' %>
+              Vi återkommer snart.
+              <br/>
+              Om du har några frågor skicka ett e-mail till team@tclubterrace.com
+            <% else  %>
+              Det bästa sättet att säkra ett lyckat slutresultat är att göra rätt från början.
+              En detaljerad brief säkerställer att informationsöverföringen från beställare till oss sker utan otydligheter eller missförstånd. Projektet kommer snabbare igång och alla som ska arbeta med att lösa din uppgift vet vad som förväntas.
+              Kvaliteten på briefen direkt kopplad till kvaliteten på leveransen.
+            <% end %>
+          </div>
+          <% unless params[:action] == 'thank_you' %>
+
+            <div><%= image_tag 'slach.svg', plugin: 'redmine_tclub_support' %>        </div>
+          <% end %>
+        </div>
+      </div>
+
+      <%= yield %>
+    </div>
+    <div class="col-xs-12 hidden-xs col-sm-1 col-md-3 col-lg-3"></div>
+
+  </div>
+</div>
+<style>
+  html, body {
+    background-color: #F7F7F7;
+  }
+
+  [type="radio"] {
+    border-radius: 50%;
+  }
+  .btn-primary{
+    background-color: #2BAA48;
+    border-color: #2BAA48;
+    color: #fff !important;
+  }
+  .btn-primary:hover{
+    background-color: #4baa7e;
+    border-color: #4baa7e;
+    color: #fff !important;
+  }
+  /*footer{*/
+  /*  position: fixed;*/
+
+  /*  bottom: 0;*/
+
+  /*  width: 100%;*/
+  /*}*/
+  @media screen and (min-width: 992px) {
+    #div_btn_create{
+      padding-right: 5px
+    }
+    #div_btn_continue{
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    footer{
+      position: fixed;
+      width: 100%;
+      bottom: 15px;
+    }
+  }
+</style>
+
+<footer>
+  <%= image_tag 'logodoneblack.svg', plugin: 'redmine_tclub_support', style: 'float: left; margin-left: 15px' %>
+  <span>
+<div id="helpdesk_widget"></div>
+<script type="text/javascript" src="https://team.tclubterrace.com/helpdesk_widget/widget.js"></script>
+</span>
+</footer>
+</body>
+</html>

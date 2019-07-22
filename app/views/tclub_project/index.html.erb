@@ -1,0 +1,575 @@
+<style>
+  .span_focus{
+    font-size: 10px;
+    color: white;
+    background-color: #60BA6F;
+    margin-bottom: 0px;
+    border-top-left-radius: 3px !important;
+    border-top-right-radius: 3px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: none;
+  }
+  textarea{
+    resize: none
+  }
+  input, textarea{
+    width: 100%;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+  .form-group{
+    position: relative;
+  }
+  .pen_edit{
+    display: none;
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+  }
+  .form-control:focus{
+    border-color: white !important;
+    box-shadow: 0 0 0 0  #fff;
+  }
+  form {
+    margin-bottom: 50px;
+  }
+</style>
+<%= form_tag tclub_project_index_path,  id: 'form_project_support' do  %>
+  <%= hidden_field_tag :step, @step %>
+  <div class="form-group row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder =  "Förnamn*" %>
+      <p id="firstname_span" class="span_focus"><%= placeholder %></p>
+      <%= text_field_tag :firstname, params[:firstname], :required => true, class: 'form-control', placeholder: placeholder, style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder =  "Efternamn*" %>
+      <p id="lastname_span" class="span_focus"><%= placeholder %></p>
+      <%= text_field_tag :lastname, params[:lastname], :required => true, class: 'form-control', placeholder: placeholder, style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+  </div>
+
+  <div class=" form-group row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder =  "Telefonnummer*" %>
+      <p id="phone_span" class="span_focus"><%= placeholder %></p>
+      <%= text_field_tag :phone, params[:phone], class: 'form-control', placeholder: placeholder, style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder = "E-mail*" %>
+      <p id="email_span" class="span_focus"><%= placeholder %></p>
+      <%= email_field_tag :email, params[:email], class: 'form-control', placeholder: placeholder, style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder =  "Projekt/Företagsnamn*"  %>
+      <p id="project_name_span" class="span_focus"><%= placeholder %></p>
+      <%= text_field_tag :project_name, params[:project_name], :required => true, class: 'form-control', placeholder: placeholder , style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <% placeholder =  "Hemsida" %>
+      <p id="website_span" class="span_focus"><%= placeholder %></p>
+      <%= text_field_tag :website, params[:website], class: 'form-control', placeholder: placeholder, style: 'width: 100%' %>
+
+      <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+    </div>
+  </div>
+
+
+  <div class="form-group" style="overflow: hidden">
+    <div class="input-file-trigger" id="dropfile" style="position: relative; width: 100%;  height: 110px; border: 3px dashed gray; text-align: center; padding-top: 30px">
+      <span>
+        <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: '' %><br/>
+        <span style="">
+         Lägg till bif. logo (svg, png, jpg, gif)
+        </span>
+      </span>
+    </div>
+    <%= render partial: 'attachment', locals: {container: Project.new} %>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-xs-12 col-sm-12 col-md-12"><b>Vi vill skapa… (Kan välja fler)</b></div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">En ny hemsida
+        <input type="checkbox" id="checklist_1" value="En ny hemsida">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">Redesign på befintlig hemsida
+        <input type="checkbox" id="checklist_2" value="Redesign på befintlig hemsida">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container"> En grafisk profi
+        <input type="checkbox" id="checklist_3" value="En grafisk profi">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container"> Rörligt material
+        <input type="checkbox" id="checklist_4" value="Rörligt material">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">Annonsmaterial
+        <input type="checkbox" id="checklist_5" value="Annonsmaterial">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">Tryckmaterial
+        <input type="checkbox" id="checklist_6" value="Tryckmaterial">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">E-handel
+        <input type="checkbox" id="checklist_7" value="E-handel">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <label class="checkbox_container">Annat
+        <input type="checkbox" id="checklist_8" value="Annat">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Beskriv övergripande vad projektet innefattar?</label>
+    <% placeholder = 'T.ex Vi behöver skapa en ny grafisk profil som infattar logotyp, typsnitt och färger. Vi behöver även en hemsida som innehåller ca 10 undersidor med information om bolaget.' %>
+    <p id="project_innerfettar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :project_innerfettar, params[:project_innerfettar], placeholder: placeholder, class: 'form-control', maxlength: 500 %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit' , style: 'bottom: 35px'%>
+    <em ><span id="project_innerfettar_em">0</span>/500 tecken</em>
+  </div>
+
+
+  <div class="form-group">
+    <label>Allmän information om ert företag och projektet</label>
+    <% placeholder = 'Vad heter ditt företag/varumärke och finns det någon anledning till namnet? Finns det t.ex någon backstory till namnet?' %>
+    <p id="allman_information_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :allman_information, params[:allman_information], placeholder: placeholder, class: 'form-control', maxlength: 200 %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit', style: 'bottom: 35px'%>
+    <em> <span id="allman_information_em">0</span>/200 tecken</em>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad gör företaget?' %>
+    <p id="vad_gor_span" class="span_focus"><%= placeholder %></p>
+    <%= text_field_tag :vad_gor, params[:vad_gor], placeholder: placeholder, class: 'form-control' %>
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad är det för storlek på företaget?' %>
+    <p id="vad_ar_det_span" class="span_focus"><%= placeholder %></p>
+    <%= text_field_tag :vad_ar_det, params[:vad_ar_det], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vem/vilka är nyckelpersonerna som vi kommer ha kontakt med under projektets gång? T.ex: John Doe – johndoe@mail.com – 070 21 21 21' %>
+    <p id="vem_vilka_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vem_vilka, params[:vem_vilka], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Finns det något specifikt datum projektet måste vara klart?' %>
+    <p id="finns_det_span" class="span_focus"><%= placeholder %></p>
+    <%= text_field_tag :finns_det, params[:finns_det], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Budget indikerar hur mycket tid vi kan tillbringa på projektet. Finns det en satt budget för projektet?' %>
+    <p id="budget_indikerar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :budget_indikerar, params[:budget_indikerar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Beskriv ert företag/varumärke med en mening.' %>
+    <p id="beskriv_mening_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :beskriv_mening, params[:beskriv_mening], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Beskriv ert företag/varumärke med två ord.' %>
+    <p id="beskriv_ord_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :beskriv_ord, params[:beskriv_ord], placeholder: placeholder, class: 'form-control' %>
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad gör ert företag eller vad gör ni bra?' %>
+    <p id="vad_gor_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_gor, params[:vad_gor], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad gör ert företag mindre bra?' %>
+    <p id="vad_gor_bra_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_gor_bra, params[:vad_gor_bra], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad differentierar ert företag mot konkurrenterna?' %>
+    <p id="vad_diff_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_diff, params[:vad_diff], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <label>Allmän bild av ert företag</label>
+    <% placeholder = 'Om ditt företag var en person eller figur vem skulle det vara och varför?' %>
+    <p id="om_ditt_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :om_ditt, params[:om_ditt], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Hur vill du att gemeneman ska uppfatta ert förtag/varumärke?' %>
+    <p id="hur_will_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :hur_will, params[:hur_will], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <label>Konkurrens</label>
+    <% placeholder = 'Vilka är era relevanta konkurrenter?' %>
+    <p id="vilka_ar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilka_ar, params[:vilka_ar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Hur är de bättre eller sämre än vad ni är?' %>
+    <p id="hur_ar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :hur_ar, params[:hur_ar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <label>Målgrupp</label>
+    <% placeholder = 'Vem är er kund? T.ex: innerstadskvinna, i 35-årsåldern med stort intresse av inredning.' %>
+    <p id="vem_ar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vem_ar, params[:vem_ar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vem är er drömkund?' %>
+    <p id="hur_ar_er_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :hur_ar_er, params[:hur_ar_er], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vilken kund vill ni attrahera som ni inte attraherar nu?' %>
+    <p id="vilken_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilken, params[:vilken], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Hur får era kunder reda på er? Var kommer era leads från?' %>
+    <p id="hur_far_era_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :hur_far_era, params[:hur_far_era], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vilken är er primära säljkanal?' %>
+    <p id="vilken_ar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilken_ar, params[:vilken_ar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vilka kunder vill ni inte attrahera?' %>
+    <p id="vilka_kunder_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilka_kunder, params[:vilka_kunder], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+
+  <div class="form-group">
+    <label>Nuvarande grafiska identitet</label>
+    <% placeholder = 'Har ni en logotyp/grafisk profil idag?' %>
+    <p id="har_ni_en_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :har_ni_en, params[:har_ni_en], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad tycker ni är bra med den och vad tycker ni är mindre bra med den?' %>
+    <p id="vad_tycker_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_tycker, params[:vad_tycker], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+
+
+  <div class="form-group">
+    <label>Specifika frågor kring utveckling av hemsida</label>
+    <% placeholder = 'Varför behöver ni en ny hemsida eller redesign av befintlig hemsida?' %>
+    <p id="varfor_behover_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :varfor_behover, params[:varfor_behover], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad är era affärsmål med er hemsida?' %>
+    <p id="vad_ar_era_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_ar_era, params[:vad_ar_era], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+
+
+  <div class="form-group">
+    <% placeholder = 'Vilka delar av er befintliga hemsida fungerar bra idag?' %>
+    <p id="vilka_delar_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilka_delar, params[:vilka_delar], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vilka delar av er befintliga hemsida fungerar inte bra idag?' %>
+    <p id="vilka_delar_idag_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vilka_delar_idag, params[:vilka_delar_idag], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group">
+    <% placeholder = 'Vad vill besökare göra på er hemsida?' %>
+    <p id="vad_vill_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :vad_vill, params[:vad_vill], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+
+  <div class="form-group">
+    <% placeholder = 'Lista eventuellt andra hemsidor ni gillar design eller funktionalitet på?' %>
+    <p id="lista_eventuellt_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :lista_eventuellt, params[:lista_eventuellt], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+
+  <div class="form-group">
+    <label>Något annat?</label>
+    <% placeholder = 'Är det något annat ni känner är bra att vi vet kring projektet?' %>
+    <p id="ar_det_nagot_span" class="span_focus"><%= placeholder %></p>
+    <%= text_area_tag :ar_det_nagot, params[:ar_det_nagot], placeholder: placeholder, class: 'form-control' %>
+
+    <%= image_tag 'edit-Pen.svg', plugin: 'redmine_tclub_support', class: 'pen_edit'%>
+
+  </div>
+
+  <div class="form-group" style="overflow: hidden">
+    <div class="input-file-trigger" id="dropfile" style="position: relative; width: 100%;  height: 110px; border: 3px dashed gray; text-align: center; padding-top: 30px">
+      <span>
+        <%= image_tag 'upload-cloud.svg', plugin: 'redmine_tclub_support', style: '' %><br/>
+        <span style="">
+         Ladda upp eventuella filer som kan vara av intresse
+        </span>
+      </span>
+    </div>
+    <%= render partial: 'attachment', locals: {container: WikiPage.new} %>
+  </div>
+
+  <div class="row">
+    <div id="div_btn_check" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-top: 10px; margin: auto;">
+      <%= submit_tag 'Gå vidare', class: 'btn btn-primary', id: 'btn_check' , style: 'margin:0; float: left; width: 100%;' %>
+    </div>
+  </div>
+
+  <div class="row" id="div_btn_create"  style="margin-top: 10px; margin: auto; display: none; " >
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+      <label class="checkbox_container">Jag godkänner T Club Terrace allmänna villkor
+        <input type="checkbox" id="accept_condition" value="true">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+      <%= submit_tag 'Skicka', class: 'btn btn-primary', id: 'btn_create' , style: 'margin:0; float: left; width: 100%;' %>
+    </div>
+  </div>
+  </div>
+
+<% end %>
+
+<script>
+    var steps = 50;
+    function progress(count){
+        $('#indicator').css('width', count+'%')
+        $('#indicator').html(count+'%')
+    }
+    function next_step(){
+        steps = 100;
+        progress(steps)
+        $('#step').val('100');
+        $('.pen_edit').show();
+        $('textarea, input[type=text]').attr('disabled', true);
+        $('#div_btn_check').hide()
+        $('#div_btn_create').show()
+
+    }
+    $(document).ready(function(){
+        $('.pen_edit').on('click', function(){
+            $(this).prev().attr('disabled', false)
+            $(this).prev().focus()
+            $(this).hide()
+        })
+        $('#allman_information, #project_innerfettar').on('keyup', function(){
+            count = $(this).val().length;
+            id = $(this).attr('id')
+            $('#'+id+'_em').html(count)
+        })
+        $('textarea, input[type=text]').on('focus', function(){
+            textarea_id = $(this).attr('id')
+            $(this).attr('placeholder', '')
+            $('#'+textarea_id+'_span').show()
+        });
+
+        $('textarea, input[type=text]').on('blur', function(){
+            textarea_id = $(this).attr('id')
+            $('#'+textarea_id+'_span').hide();
+            if(steps === 100)
+            {
+                $(this).next().show();
+                $(this).attr('disabled', true)
+            }
+            $(this).attr('placeholder', $('#'+textarea_id+'_span').text())
+        });
+        $('#btn_check').on('click', function(e){
+            e.preventDefault();
+            if($('#step').val() === '50')
+                next_step();
+        });
+        $('#btn_create').on('click', function(e){
+            e.preventDefault();
+            if(!$('#accept_condition').prop('checked'))
+                alert('You have to accept the condition.');
+            else{
+                $.ajax({
+                    url: '/tclub_project/check_project.json',
+                    type: 'GET',
+                    data: {project_name: $('#project_name').val()},
+                    success: function(json){
+                        if(json['success']){
+                            $('textarea, input[type=text]').attr('disabled', false);
+                            $.ajax({
+                                url: '/tclub_project.json',
+                                type: 'POST',
+                                data:  $('#form_project_support').serialize(),
+                                success: function(json){
+                                    if(json['success']){
+                                        window.location = '/tclub_project/thank_you'
+                                    }
+                                    else {
+                                        alert(json['errors'])
+                                    }
+                                }
+                            })
+                        }
+                        else {
+                            alert(json['errors'])
+                        }
+                    }
+                })
+
+            }
+        })
+    })
+</script>
+
+<%= javascript_include_tag 'attachments' %>
