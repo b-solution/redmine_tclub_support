@@ -11,29 +11,23 @@ class TclubProjectController < ApplicationController
   end
 
   def create
-    @step = 100
-    if params[:step].to_s == '50'
-      render :index
-    else
-      # create content
-      # create project
-      project = Project.new(name: params[:project_name], identifier: params[:project_name].to_s.parameterize)
-      if project.save
-        # create contact
-        if defined? Contact
-          [ "firstname", "lastname", "phone", "email", "project_name", "website"]
+    project = Project.new(name: params[:project_name], identifier: params[:project_name].to_s.parameterize)
+    if project.save
+      # if project && Setting.plugin_redmine_tclub_support['logo'].present? &&
+      #     ( cfv = project.custom_field_values.detect {|c| c.custom_field_id.to_s == Setting.plugin_redmine_tclub_support['logo']} )
+      #   Attachment.attach_files(cfv, params[:attachments])
+      # end
 
-        end
-        # create wiki
-        [ "project_innerfettar", "allman_information", "vad_gor", "vad_ar_det", "vem_vilka", "finns_det", "budget_indikerar", "beskriv_mening", "beskriv_ord", "vad_gor_bra", "vad_diff", "om_ditt", "hur_will", "vilka_ar", "hur_ar", "vem_ar", "hur_ar_er", "vilken", "hur_far_era", "vilken_ar", "vilka_kunder", "har_ni_en", "vad_tycker", "varfor_behover", "vad_ar_era", "vilka_delar", "vilka_delar_idag", "vad_vill", "lista_eventuellt", "ar_det_nagot"]
-        wiki = Wiki.create(project_id: project.id, start_page: "Wiki", status: 1)
-        wiki_page =  WikiPage.create(wiki_id: wiki.id, title: project.name)
-        wiki_content =  WikiContent.create(page_id: wiki_page.id, text: content_wiki)
-
+      # create contact
+      if defined? Contact
+        Contact.create(first_name: params[:firstname], last_name: params[:lastname], phone: params[:phone], email: params[:email], website: params[:website])
       end
-      render json: {success: true}
+      wiki = project.wiki
+      wiki_page =  WikiPage.create(wiki_id: wiki.id, title: 'Wiki')
+      WikiContent.create(page_id: wiki_page.id, text: content_wiki)
+      Attachment.attach_files(wiki_page, params[:wiki_attachments])
     end
-
+    redirect_to thank_you_tclub_project_index_path
   end
 
   def check_project

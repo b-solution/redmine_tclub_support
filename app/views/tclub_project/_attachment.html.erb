@@ -4,7 +4,7 @@
 <% multiple = true unless defined?(multiple) && multiple == false %>
 <% show_add = multiple || saved_attachments.blank? %>
 <% description = (defined?(description) && description == false ? false : true) %>
-<% css_class = (defined?(filedrop) && filedrop == false ? '' : 'filedrop') %>
+<% css_class = (defined?(filedrop) && filedrop == false ? '' : "#{drop_file_id}") %>
 
 <span class="attachments_form">
       <span class="attachments_fields">
@@ -46,6 +46,16 @@
       </span>
     </span>
 <script>
+    function handleFileDropEvent2(e) {
+
+        $(this).removeClass('fileover');
+        blockEventPropagation(e);
+
+        if ($.inArray('Files', e.dataTransfer.types) > -1) {
+            handleFileDropEvent.target = e.target;
+            uploadAndAttachFiles(e.dataTransfer.files, $('input:file.<%= drop_file_id %>').first());
+        }
+    }
     $(document).ready(function(){
         // initialisation des variables
         var fileInput  = document.querySelector( ".file_selector" ),
@@ -67,26 +77,26 @@
 
 
 
-        $(document).on('dragenter', '#dropfile', function() {
+        $(document).on('dragenter', '#<%= drop_file_id %>', function() {
             $(this).css('border', '3px dashed blue');
             return false;
         });
 
-        $(document).on('dragover', '#dropfile', function(e){
+        $(document).on('dragover', '#<%= drop_file_id %>', function(e){
             e.preventDefault();
             e.stopPropagation();
             $(this).css('border', '3px dashed #2BAA48');
             return false;
         });
 
-        $(document).on('dragleave', '#dropfile', function(e) {
+        $(document).on('dragleave', '#<%= drop_file_id %>', function(e) {
             e.preventDefault();
             e.stopPropagation();
             $(this).css('border', '3px dashed #2BAA48');
             return false;
         });
 
-        $(document).on('drop', '#dropfile', function(e) {
+        $(document).on('drop', '#<%= drop_file_id %>', function(e) {
             if(e.originalEvent.dataTransfer){
                 if(e.originalEvent.dataTransfer.files.length) {
                     // Stop the propagation of the event
@@ -94,7 +104,7 @@
                     e.stopPropagation();
                     $(this).css('border', '3px dashed green');
                     // Main function to upload
-                    handleFileDropEvent(e)
+                    handleFileDropEvent2(e)
                 }
             }
             else {
