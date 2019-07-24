@@ -20,7 +20,9 @@ class TclubProjectController < ApplicationController
 
       # create contact
       if defined? Contact
-        Contact.create(first_name: params[:firstname], last_name: params[:lastname], phone: params[:phone], email: params[:email], website: params[:website])
+        c = Contact.new(first_name: params[:firstname], last_name: params[:lastname], phone: params[:phone], email: params[:email], website: params[:website])
+        c.project = project
+        c.save
       end
       wiki = project.wiki
       wiki_page =  WikiPage.create(wiki_id: wiki.id, title: 'Wiki')
