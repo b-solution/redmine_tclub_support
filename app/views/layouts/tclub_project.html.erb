@@ -21,6 +21,7 @@
     <div id="indicator"><%= @step %>%</div>
   </div>
 <% end %>
+
 <style>
   #progressbar
   {
@@ -29,6 +30,9 @@
     background-color:white;
     overflow: hidden;
     height:28px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
   }
   #indicator
   {
@@ -67,9 +71,8 @@
               <br/>
               Om du har några frågor skicka ett e-mail till team@tclubterrace.com
             <% else  %>
-              Det bästa sättet att säkra ett lyckat slutresultat är att göra rätt från början.
-              En detaljerad brief säkerställer att informationsöverföringen från beställare till oss sker utan otydligheter eller missförstånd. Projektet kommer snabbare igång och alla som ska arbeta med att lösa din uppgift vet vad som förväntas.
-              Kvaliteten på briefen direkt kopplad till kvaliteten på leveransen.
+              Det bästa sättet att säkra ett lyckat slutresultat är att göra rätt från början. En detaljerad brief säkerställer att informationsöverföringen från beställare till oss sker utan otydligheter eller missförstånd.
+              Projektet kommer snabbare igång och alla som ska arbeta med att lösa din uppgift vet vad som förväntas. Kvalitén på briefen är direkt kopplad till kvalitén på leveransen.
             <% end %>
           </div>
           <% unless params[:action] == 'thank_you' %>
@@ -124,11 +127,79 @@
       bottom: 15px;
     }
   }
+
+  .icon, .description {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    width: auto !important;
+  }
+  .icon-only {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    padding-left: 16px;
+    display: inline-block;
+    width: 0;
+    height: 16px;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 8px;
+    vertical-align: middle;
+  }
+  .icon-only::after {
+    content: "&nbsp;";
+  }
+
+  .icon-del { background-image: url(../images/delete.png);
+    width: 15px;
+    height: 15px;
+  }
 </style>
+<script>
+    function progress(count){
+        $('#indicator').css('width', count+'%')
+        $('#indicator').html(count+'%')
+    }
+    (function(){
+        var $w = $(window);
+        var $circ = $('.animated-circle');
+        var $progCount = $('.progress-count');
+        var reachedPercent = 0;
+
+        var wh, h, sHeight;
+
+        function setSizes(){
+            wh = $w.height();
+            h = $('body').height();
+            sHeight = h - wh;
+        }
+
+        setSizes();
+
+        $w.on('scroll', function(){
+            var perc = Math.max(0, Math.min(1, $w.scrollTop()/sHeight));
+            if(perc > reachedPercent) {
+                reachedPercent = perc;
+                updateProgress(perc);
+            }
+        }).on('resize', function(){
+            setSizes();
+            $w.trigger('scroll');
+        });
+
+
+        function updateProgress(perc){
+            progress(Math.round(perc * 90))
+           }
+
+    }());
+</script>
 
 <footer>
   <%= image_tag 'logodoneblack.svg', plugin: 'redmine_tclub_support', style: 'float: left; margin-left: 15px' %>
   <span>
+
 <div id="helpdesk_widget"></div>
 <script type="text/javascript" src="https://team.tclubterrace.com/helpdesk_widget/widget.js"></script>
 </span>

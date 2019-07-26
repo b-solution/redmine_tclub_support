@@ -474,13 +474,27 @@
 
   <div class="row" id="div_btn_create"  style="margin-top: 10px; margin: auto; display: none; " >
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
-      <label class="checkbox_container">Jag godkänner T Club Terrace allmänna villkor
+      <label class="checkbox_container"><a href="javascript:void(0)" onclick="$('#terms').toggle()">Jag godkänner T Club Terrace allmänna villkor</a>
         <input type="checkbox" id="accept_condition" value="true">
         <span class="checkmark"></span>
       </label>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
       <%= submit_tag 'Skicka', class: 'btn btn-primary', id: 'btn_create' , style: 'margin:0; float: left; width: 100%;' %>
+    </div>
+    <div id="terms" style="display: none">
+      T Club Terrace AB (559152-1488) are responsible for the personal data we receive in connection with assignments and personal data that are handled when an assignment is prepared or administered.
+      We handle the data in order to be able to carry out and administer the assignment, to protect your interests and for purposes of billing and accounting. The data has its legal basis in among other things the data protection regulation and the bookkeeping act. The stated statutes allow for handling of the information with the purpose of enabling us to fulfil our duties towards our clients/registered and other legal framework. The statutes also allow, after a balancing of interests in which among other things any objections to the handling made by the registered is taken into consideration, for handling of personal data for our and other businesses within the corporate groups justified interests to develop, to market and to administrate our services and business activities in an effective way and also to protect our civil rights and obligations. The data can also be used for business- and method development, market analysis, statistics and risk management. The data that is handled in order to develop and analyse the business is handled on the basis of our justified interest to develop the business and to communicate with our contacts.
+      We will not disclose any personal data to any third party apart from instances where it has been expressly agreed upon between the company and the registered, if it is necessary in order for us to fulfil our legal obligations or in cases where we hire an external service provider that carries out assignments on our behalf.
+
+      The personal data is saved, in accordance with the company’s obligations in accordance with the regulations mentioned above, for a period of 10 years from the assignments completion or from the final invoice’s date of payment or for an extended period of time as a result of the nature of the assignment. If you cancel newsletters etc. all personal data referred to the newsletters will be immediately deleted.
+
+      You have the right to, free of charge, demand information from the company about the usage of the personal data that concerns you. We will on your request, or on our own initiative, correct or delete data that is inaccurate or limit the handling of such data. Furthermore, you have the right to demand that your personal data is not used for direct marketing. You also have the right to receive your personal data in a computer-readable form (or, if technically possible, get your data transferred to a third party of your choice). If you are dissatisfied with our handling of your personal data you can submit a complaint to a supervisory authority which in Sweden is Datainspektionen (www.datainspektionen.se). You can also contact the supervisory authority in the country where you live or work.
+      Contact us at info@tclubterrace.com or at the address below if you have any questions regarding our handling of personal data.
+
+      Teddy Wold, ordförande.
+      Kommendörsgatan 15, 114 48 Stockholm.
+      The data controller is T Club Terrace AB (559152-1488) Contact information as stated above.
     </div>
   </div>
 
@@ -489,10 +503,7 @@
 
 <script>
     var steps = 50;
-    function progress(count){
-        $('#indicator').css('width', count+'%')
-        $('#indicator').html(count+'%')
-    }
+
     function next_step(){
         steps = 100;
         progress(steps)
@@ -532,8 +543,7 @@
         });
         $('#btn_check').on('click', function(e){
             e.preventDefault();
-            if($('#step').val() === '50')
-                next_step();
+            next_step();
         });
         $('#btn_create').on('click', function(e){
             e.preventDefault();

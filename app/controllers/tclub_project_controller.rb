@@ -3,7 +3,7 @@ class TclubProjectController < ApplicationController
   layout 'tclub_project'
 
   def index
-    @step =  50
+    @step =  0
   end
 
   def thank_you
@@ -49,85 +49,85 @@ class TclubProjectController < ApplicationController
   def content_wiki
     output = ''
 
-    output<< "h2. Vi vill skapa… (Kan välja fler) \n"
+    output<< "h2. Vi vill skapa… (Kan välja fler) \n\r"
 
     if params[:checklist_1]
-      output << "- En ny hemsida \n"
+      output << "* En ny hemsida \n\r"
     end
     if params[:checklist_2]
 
-      output << "-  Redesign på befintlig hemsida\n"
+      output << "* Redesign på befintlig hemsida\n\r"
     end
     if params[:checklist_3]
-      output << "-  En grafisk profi\n"
+      output << "* En grafisk profi\n\r"
     end
 
     if params[:checklist_4]
-      output << "-  Rörligt material\n"
+      output << "* Rörligt material\n\r"
 
     end
     if params[:checklist_5]
-      output << "-   Annonsmaterial\n"
+      output << "* Annonsmaterial\n\r"
     end
 
     if params[:checklist_6]
-      output << "-  Tryckmaterial\n"
+      output << "* Tryckmaterial\n\r"
     end
 
     if params[:checklist_7]
-      output << "-   E-handel\n"
+      output << "* E-handel\n\r"
     end
 
     if params[:checklist_8]
-      output << "-  Annat\n"
+      output << "* Annat\n\r"
     end
 
-    output << "h3. Beskriv övergripande vad projektet innefattar?\n"
-    output << "#{params[:project_innerfettar]} \n"
+    output << "h3. Beskriv övergripande vad projektet innefattar?\n\r"
+    output << "#{params[:project_innerfettar]} \n\r"
 
-    output << "h3. Allmän information om ert företag och projektet\n"
-    output << "#{params[:allman_information]} \n"
-    output << "#{params[:vad_gor]} \n"
-    output << "#{params[:vad_ar_det]} \n"
-    output << "#{params[:vem_vilka]} \n"
-    output << "#{params[:finns_det] } \n"
-    output << "#{ params[:budget_indikerar] } \n"
-    output << "#{ params[:beskriv_mening] } \n"
-    output << "#{ params[:beskriv_ord] } \n"
-    output << "#{ params[:vad_gor] } \n"
-    output << "#{ params[:vad_gor_bra] } \n"
-    output << "#{ params[:vad_diff] } \n"
+    output << "h3. Allmän information om ert företag och projektet\n\r"
+    output << "#{params[:allman_information]} \n\r"
+    output << "#{params[:vad_gor]} \n\r"
+    output << "#{params[:vad_ar_det]} \n\r"
+    output << "#{params[:vem_vilka]} \n\r"
+    output << "#{params[:finns_det] } \n\r"
+    output << "#{ params[:budget_indikerar] } \n\r"
+    output << "#{ params[:beskriv_mening] } \n\r"
+    output << "#{ params[:beskriv_ord] } \n\r"
+    output << "#{ params[:vad_gor] } \n\r"
+    output << "#{ params[:vad_gor_bra] } \n\r"
+    output << "#{ params[:vad_diff] } \n\r"
 
-    output << "h3. Allmän bild av ert företag \n"
-    output << "#{ params[:om_ditt] } \n"
-    output << "#{params[:hur_will] } \n"
+    output << "h3. Allmän bild av ert företag \n\r"
+    output << "#{ params[:om_ditt] } \n\r"
+    output << "#{params[:hur_will] } \n\r"
 
-    output << "h3. Konkurrens\n"
-    output << "#{ params[:vilka_ar] } \n"
-    output << "#{params[:hur_ar] } \n"
+    output << "h3. Konkurrens\n\r"
+    output << "#{ params[:vilka_ar] } \n\r"
+    output << "#{params[:hur_ar] } \n\r"
 
-    output << "h3. Målgrupp\n"
-    output << "#{params[:vem_ar] } \n"
-    output << "#{ params[:hur_ar_er] } \n"
-    output << "#{ params[:vilken] } \n"
-    output << "#{ params[:hur_far_era] } \n"
-    output << "#{ params[:vilken_ar] } \n"
-    output << "#{ params[:vilka_kunder] } \n"
+    output << "h3. Målgrupp\n\r"
+    output << "#{params[:vem_ar] } \n\r"
+    output << "#{ params[:hur_ar_er] } \n\r"
+    output << "#{ params[:vilken] } \n\r"
+    output << "#{ params[:hur_far_era] } \n\r"
+    output << "#{ params[:vilken_ar] } \n\r"
+    output << "#{ params[:vilka_kunder] } \n\r"
 
-    output << "h3. Nuvarande grafiska identitet\n"
-    output << "#{ params[:har_ni_en] } \n"
-    output << "#{ params[:vad_tycker] } \n"
+    output << "h3. Nuvarande grafiska identitet\n\r"
+    output << "#{ params[:har_ni_en] } \n\r"
+    output << "#{ params[:vad_tycker] } \n\r"
 
-    output << "h3. Specifika frågor kring utveckling av hemsida\n"
-    output << "#{ params[:varfor_behover] } \n"
-    output << "#{params[:vad_ar_era] } \n"
-    output << "#{ params[:vilka_delar] } \n"
-    output << "#{ params[:vilka_delar_idag] } \n"
-    output << "#{ params[:vad_vill] } \n"
-    output << "#{ params[:lista_eventuellt] } \n"
+    output << "h3. Specifika frågor kring utveckling av hemsida\n\r"
+    output << "#{ params[:varfor_behover] } \n\r"
+    output << "#{params[:vad_ar_era] } \n\r"
+    output << "#{ params[:vilka_delar] } \n\r"
+    output << "#{ params[:vilka_delar_idag] } \n\r"
+    output << "#{ params[:vad_vill] } \n\r"
+    output << "#{ params[:lista_eventuellt] } \n\r"
 
-    output << "h3. Något annat?\n"
-    output << "#{params[:ar_det_nagot] } \n"
+    output << "h3. Något annat?\n\r"
+    output << "#{params[:ar_det_nagot] } \n\r"
     output
 
   end
