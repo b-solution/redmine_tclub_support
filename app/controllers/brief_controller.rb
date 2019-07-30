@@ -1,4 +1,4 @@
-class TclubProjectController < ApplicationController
+class BriefController < ApplicationController
 
   layout 'tclub_project'
 
@@ -29,7 +29,7 @@ class TclubProjectController < ApplicationController
       WikiContent.create(page_id: wiki_page.id, text: content_wiki)
       Attachment.attach_files(wiki_page, params[:wiki_attachments])
     end
-    redirect_to thank_you_tclub_project_index_path
+    redirect_to thank_you_brief_index_path
   end
 
   def check_project

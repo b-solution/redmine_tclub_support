@@ -12,10 +12,10 @@ resources :client_report, only: [:create, :show] do
   end
 end
 
-resources :tclub_project, only: [:create, :index] do
+resources :brief, only: [:create, :index] do
   collection do
     get 'check_project'
-    get 'thank_you', to: 'tclub_project#thank_you'
+    get 'thank_you'
   end
 end
 

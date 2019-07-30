@@ -35,7 +35,7 @@
     margin-bottom: 50px;
   }
 </style>
-<%= form_tag tclub_project_index_path,  id: 'form_project_support' do  %>
+<%= form_tag brief_index_path,  id: 'form_project_support' do  %>
   <%= hidden_field_tag :step, @step %>
   <div class="form-group row">
     <div class="col-xs-12 col-sm-12 col-md-6">
@@ -551,7 +551,7 @@
                 alert('You have to accept the condition.');
             else{
                 $.ajax({
-                    url: '/tclub_project/check_project.json',
+                    url: '/brief/check_project.json',
                     type: 'GET',
                     data: {project_name: $('#project_name').val()},
                     success: function(json){
